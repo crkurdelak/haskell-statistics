@@ -5,6 +5,7 @@ import System.IO
 main :: IO ()
 main = do
     --get 10 floats from grades.dat
+
     -- get file contents
     contents <- readFile "grades.dat"
     -- get floats out of contents
@@ -12,6 +13,7 @@ main = do
 
     --do calculations and show results
     putStrLn show <$> calcStats floats
+
 
 calcStats :: [Maybe Float] -> [Maybe Float]
 calcStats floatlist =
@@ -24,4 +26,9 @@ calcMean floatlist = sum (floatlist / (fromIntegral length floatlist))
 
 calcStdev :: [Maybe Float] -> Maybe Float
 --calcStdev floatlist = map sqrt (((sum x - calcMean floatlist)^2) / length floatlist) floatlist
-calcStdev floatlist = sqrt ((sum (floatlist - calcMean floatlist))**2)
+-- currently it's trying to subtract scalar from list
+--let meandiffs = [x - calcmean floatlist | x <- floatlist]
+--calcStdev floatlist = sqrt ((sum (floatlist - calcMean floatlist))**2)
+
+--uses a list comprehension wow so haskell
+calcStdev floatlist = sqrt ((sum [x - calcMean floatlist | x <- floatlist])**2)
