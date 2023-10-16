@@ -19,7 +19,7 @@ calcStats floatlist =
 
 
 calcMean :: [Maybe Float] -> Maybe Float
-calcMean floatlist = sum floatlist / length floatlist
+calcMean floatlist = sum (floatlist / (fromIntegral length floatlist))
 
 
 calcStdev :: [Maybe Float] -> Maybe Float
