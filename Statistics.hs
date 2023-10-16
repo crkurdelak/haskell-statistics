@@ -2,6 +2,7 @@ import Text.Read (readMaybe)
 import Text.Printf (printf)
 import System.IO
 
+--this program is so short but it was really hard to make bc haskell is so confusing
 main :: IO ()
 main = do
     --get 10 floats from grades.dat
@@ -9,10 +10,26 @@ main = do
     -- get file contents
     contents <- readFile "grades.dat"
     -- get floats out of contents
-    let floats = readMaybe <$> lines contents
+    let floats = readMaybe <$> lines contents :: [Maybe Float]
 
     --do calculations and show results
-    putStrLn show <$> calcStats floats
+
+    let results = [show x | x <- calcStats floats] :: [String]
+
+    --putStrLn "Mean: " : results[0] : "\nMin: " : results[1] : "\nMax: " : results[2] : "\nStdev: " : results[3] : []
+    --let resultstring = "Mean: " : show <$> calcMean floats : "\nMin: " : show <$> minimum floats : "\nMax: " : show <$> maximum floats : "\nStdev: " : show <$> calcStdev floats : []
+    --putStrLn resultstring
+
+    putStrLn <$> show <$> calcMean floats
+    putStrLn <$> show <$> minimum floats
+    putStrLn <$> show <$> maximum floats
+    putStrLn <$> show <$> calcStdev floats
+
+    --putStrLn show results
+
+    --putStrLn show <$> calcStats floats
+
+    --map putStrLn (map show (calcStats floats))
 
 
 calcStats :: [Maybe Float] -> [Maybe Float]
