@@ -5,27 +5,21 @@ import System.IO
 main :: IO ()
 main = do
     --get 10 floats from grades.dat
-    contents <- readMaybe <$> readFile "grades.dat"
+    --contents <- map readMaybe <$> lines <$> readFile "grades.dat" :: [Maybe Float]
+    floats <- (map readMaybe (lines (readFile "grades.dat"))) :: [Maybe Float]
 
     --do calculations and show results
-    putStrLn (calcStats contents)
+    --putStrLn show (calcStats (map readMaybe (lines contents)))
+    putStrLn show (calcStats floats)
 
-calcStats :: [Maybe Float] -> [Float]
+calcStats :: [Maybe Float] -> [Maybe Float]
 calcStats floatlist =
-    calcMean floatlist : calcMin floatlist : calcMax floatlist : calcStdev floatlist : []
+    calcMean floatlist : minimum floatlist : maximum floatlist : calcStdev floatlist : []
 
 
-calcMean :: [Maybe Float] -> Float
-calcMean floatlist = 0.0
+calcMean :: [Maybe Float] -> Maybe Float
+calcMean floatlist = sum floatlist / length floatlist
 
 
-calcMin :: [Maybe Float] -> Float
-calcMin floatlist = 0.0
-
-
-calcMax :: [Maybe Float] -> Float
-calcMax floatlist = 0.0
-
-
-calcStdev :: [Maybe Float] -> Float
-calcStdev floatlist = 0.0
+calcStdev :: [Maybe Float] -> Maybe Float
+calcStdev floatlist = map sqrt (((sum x - calcMean floatlist)^2) / length floatlist)
