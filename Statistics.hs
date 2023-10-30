@@ -42,10 +42,5 @@ calcMean floatlist = (sum floatlist) / (fromIntegral (length floatlist))
 
 
 calcStdev :: [Float] -> Float
---calcStdev floatlist = map sqrt (((sum x - calcMean floatlist)^2) / length floatlist) floatlist
--- currently it's trying to subtract scalar from list
---let meandiffs = [x - calcmean floatlist | x <- floatlist]
---calcStdev floatlist = sqrt ((sum (floatlist - calcMean floatlist))**2)
-
 --uses a list comprehension wow so haskell
-calcStdev floatlist = sqrt (sum [(x - (calcMean floatlist))**2 | x <- floatlist])
+calcStdev floatlist = sqrt ((sum [(x - (calcMean floatlist))**2 | x <- floatlist]) / fromIntegral (length floatlist - 1))
