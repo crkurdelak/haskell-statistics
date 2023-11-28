@@ -13,17 +13,10 @@ main = do
     let floats = read <$> lines contents :: [Float]
 
     --do calculations and show results
-
-    --let results = [show x | x <- calcStats floats] :: [String]
-
-    --putStrLn "Mean: " : results[0] : "\nMin: " : results[1] : "\nMax: " : results[2] : "\nStdev: " : results[3] : []
-    --let resultstring = "Mean: " : show <$> calcMean floats : "\nMin: " : show <$> minimum floats : "\nMax: " : show <$> maximum floats : "\nStdev: " : show <$> calcStdev floats : []
-    --putStrLn resultstring
-
-    putStrLn (show (calcMean floats))
-    putStrLn (show (minimum floats))
-    putStrLn (show (maximum floats))
-    putStrLn (show (calcStdev floats))
+    putStrLn ("mean " ++ (show (calcMean floats)))
+    putStrLn ("max " ++ (show (maximum floats)))
+    putStrLn ("min " ++ (show (minimum floats)))
+    printf "std dev %.2f\n" (calcStdev floats)
 
     --putStrLn show results
 
@@ -34,7 +27,8 @@ main = do
 
 calcStats :: [Float] -> [Float]
 calcStats floatlist =
-    calcMean floatlist : minimum floatlist : maximum floatlist : calcStdev floatlist : []
+    calcMean floatlist : minimum floatlist : maximum floatlist 
+    : calcStdev floatlist : []
 
 
 calcMean :: [Float] -> Float
@@ -43,4 +37,5 @@ calcMean floatlist = (sum floatlist) / (fromIntegral (length floatlist))
 
 calcStdev :: [Float] -> Float
 --uses a list comprehension wow so haskell
-calcStdev floatlist = sqrt ((sum [(x - (calcMean floatlist))**2 | x <- floatlist]) / fromIntegral (length floatlist - 1))
+calcStdev floatlist = sqrt ((sum [(x - (calcMean floatlist))**2 | x <- floatlist]) / 
+    fromIntegral (length floatlist - 1))
