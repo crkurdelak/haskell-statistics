@@ -2,7 +2,7 @@ import Text.Read (readMaybe)
 import Text.Printf (printf)
 import System.IO
 
---this program is so short but it was really hard to make bc haskell is so confusing
+
 main :: IO ()
 main = do
     --get 10 floats from grades.dat
@@ -17,12 +17,6 @@ main = do
     putStrLn ("max " ++ (show (maximum floats)))
     putStrLn ("min " ++ (show (minimum floats)))
     printf "std dev %.2f\n" (calcStdev floats)
-
-    --putStrLn show results
-
-    --putStrLn show <$> calcStats floats
-
-    --map putStrLn (map show (calcStats floats))
 
 
 calcStats :: [Float] -> [Float]
